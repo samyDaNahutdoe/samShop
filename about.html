@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>About Me - Sam Nahutdo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .about-content {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--light-gray);
+            margin-bottom: 40px;
+        }
+        
+        .about-content h2 {
+            color: var(--white);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .about-content p {
+            color: var(--light-text);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        
+        .about-image {
+            width: 100%;
+            max-width: 400px;
+            margin: 30px auto;
+            display: block;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: color var(--transition-normal);
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            color: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- ===== STICKY HEADER ===== -->
+        <header class="header">
+            <div class="container header-container">
+                <!-- Logo -->
+                <a href="index.html" class="logo">SAM<span>NAHUTDO</span></a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="selling.html">Selling</a></li>
+                        <li><a href="commission.html">Commission</a></li>
+                    </ul>
+                    <div class="nav-icons">
+                        <i class="fas fa-search" title="Search"></i>
+                    </div>
+                </nav>
+                
+                <!-- Hamburger Menu (Mobile) -->
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-nav-links">
+                <a href="index.html">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="selling.html">
+                    <i class="fas fa-shopping-bag"></i> Selling
+                </a>
+                <a href="commission.html">
+                    <i class="fas fa-video"></i> Commission
+                </a>
+            </div>
+            
+            <div class="mobile-icons">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        
+        <!-- ===== ABOUT PAGE ===== -->
+        <main class="main container">
+            <div class="page-title">
+                <h1>About Me</h1>
+                <p>Learn more about my work and passion for digital creation.</p>
+            </div>
+        </main>
+        
+        <!-- ===== ABOUT ME SECTION (Bottom) ===== -->
+        <section class="about-me-section" id="aboutMeSection">
+            <div class="about-me-container">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                     alt="Profile" 
+                     class="about-me-avatar">
+                
+                <h2 class="about-me-title">About Me</h2>
+                
+                <div class="about-me-description">
+                    <p>If you have bought something / plan to buy something:</p>
+                    <p>Please do not share or give them to anyone. I need the money for my school and personal uses.</p>
+                    <p>Please do not include my overlays, presets etc in your own project files if you plan to sell or distribute them as well.</p>
+                </div>
+                
+                <div class="about-me-contact">
+                    Cualquier pregunta, envíela a instagram 
+                    <a href="https://instagram.com/josxaep" target="_blank" class="instagram-handle">@josxaep</a> 
+                    o envíeme un correo electrónico a 
+                    <a href="mailto:andresaftereffects@gmail.com" style="color: #b19cd9; text-decoration: none;">andresaftereffects@gmail.com</a>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">SAMNAHUTDO</div>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="selling.html">Selling</a>
+                        <a href="commission.html">Commission</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                    </div>
+                    <p class="copyright">
+                        <a href="contact.html" style="color: var(--text-gray); text-decoration: none;">Contact me</a> | 
+                        <a href="about.html" style="color: var(--text-gray); text-decoration: none;">About me</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMobileMenu();
+            setupAboutMeReveal();
+        });
+        
+        function setupAboutMeReveal() {
+            const aboutSection = document.getElementById('aboutMeSection');
+            if (!aboutSection) return;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            observer.observe(aboutSection);
+        }
+    </script>
+</body>
+</html>
+

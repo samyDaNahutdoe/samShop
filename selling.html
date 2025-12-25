@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sam Nahutdo - Selling</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- ===== STICKY HEADER ===== -->
+        <header class="header">
+            <div class="container header-container">
+                <!-- Logo -->
+                <a href="index.html" class="logo">SAM<span>NAHUTDO</span></a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="selling.html" class="active">Selling</a></li>
+                        <li><a href="commission.html">Commission</a></li>
+                    </ul>
+                    <div class="nav-icons">
+                        <i class="fas fa-search" title="Search"></i>
+                    </div>
+                </nav>
+                
+                <!-- Hamburger Menu (Mobile) -->
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-nav-links">
+                <a href="index.html">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="selling.html">
+                    <i class="fas fa-shopping-bag"></i> Selling
+                </a>
+                <a href="commission.html">
+                    <i class="fas fa-video"></i> Commission
+                </a>
+            </div>
+            
+            <div class="mobile-icons">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        
+        <!-- ===== SELLING PAGE ===== -->
+        <main class="main container">
+            <div class="page active" id="selling-page">
+                <div class="page-title">
+                    <h1>Selling Products</h1>
+                    <p>Browse and purchase premium digital assets, templates, and project files.</p>
+                </div>
+                
+                <!-- Selling Videos Section -->
+                <div class="selling-video-section" style="margin-bottom: 60px;">
+                    <div class="commission-video-grid" id="selling-videos-grid">
+                        <!-- Selling videos loaded by JS -->
+                    </div>
+                </div>
+                
+                <!-- Product Images Section -->
+                <div class="selling-images-section" style="margin-bottom: 60px;">
+                    <div class="commission-video-grid" id="product-images-grid">
+                        <!-- Product images loaded by JS -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Page update note -->
+        <section class="page-update-note" style="padding: 24px 0; text-align: center; color: var(--text-gray);">
+            <p>This will be updated soon, hopefully be added more content</p>
+        </section>
+        
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">SAMNAHUTDO</div>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="selling.html">Selling</a>
+                        <a href="commission.html">Commission</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                    </div>
+                    <p class="copyright">
+                        <a href="contact.html" style="color: var(--text-gray); text-decoration: none;">Contact me</a> | 
+                        <a href="about.html" style="color: var(--text-gray); text-decoration: none;">About me</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+        
+        <!-- ===== ABOUT ME SECTION (Bottom) ===== -->
+        <section class="about-me-section" id="aboutMeSection">
+            <div class="about-me-container">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                     alt="Profile" 
+                     class="about-me-avatar">
+                
+                <h2 class="about-me-title">About Me</h2>
+                
+                <div class="about-me-description">
+                    <p>If you have bought something / plan to buy something:</p>
+                    <p>Please do not share or give them to anyone. I need the money for my school and personal uses.</p>
+                    <p>Please do not include my overlays, presets etc in your own project files if you plan to sell or distribute them as well.</p>
+                </div>
+                
+                <div class="about-me-contact">
+                    Cualquier pregunta, envíela a instagram 
+                    <a href="https://instagram.com/josxaep" target="_blank" class="instagram-handle">@josxaep</a> 
+                    o envíeme un correo electrónico a 
+                    <a href="mailto:andresaftereffects@gmail.com" style="color: #b19cd9; text-decoration: none;">andresaftereffects@gmail.com</a>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+    
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <video id="modalVideo" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <button class="close-modal" id="closeModal">&times;</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        // Selling page specific JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize selling page
+            generateSellingVideos();
+            generateProductImages();
+            setupMobileMenu();
+            setupVideoModal();
+            
+            // Add click events to selling videos play buttons
+            document.querySelectorAll('#selling-videos-grid .video-play-button').forEach((button, index) => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const video = window.sellingVideos[index];
+                    if (video) {
+                        openVideoModal(video);
+                    }
+                });
+            });
+            
+            // Add click events to selling videos cards (navigate to product detail)
+            document.querySelectorAll('#selling-videos-grid .video-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.video-play-button')) {
+                        const videoId = card.getAttribute('data-video-id');
+                        if (videoId) {
+                            window.location.href = `product-detail.html?id=${videoId}`;
+                        }
+                    }
+                });
+            });
+            
+            // Add click events to product images cards (navigate to product detail)
+            document.querySelectorAll('#product-images-grid .video-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const imgId = card.getAttribute('data-image-id');
+                    if (imgId) {
+                        window.location.href = `product-detail.html?id=${imgId}`;
+                    }
+                });
+            });
+            
+            // Setup About Me section reveal
+            setupAboutMeReveal();
+        });
+        
+        function setupAboutMeReveal() {
+            const aboutSection = document.getElementById('aboutMeSection');
+            if (!aboutSection) return;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            observer.observe(aboutSection);
+        }
+    </script>
+</body>
+</html>
+</html>

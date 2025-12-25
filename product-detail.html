@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Product Detail - Sam Nahutdo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for product detail page */
+        .product-detail-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 50px;
+        }
+        
+        @media (min-width: 992px) {
+            .product-detail-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 70px;
+            }
+        }
+        
+        /* Product Gallery */
+        .product-hero {
+            position: relative;
+        }
+        
+        .hero-image {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            aspect-ratio: 2/3;
+            background: linear-gradient(45deg, var(--black), var(--medium-gray));
+            padding: 10px;
+        }
+        
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: calc(var(--border-radius) - 5px);
+            height: 100%;
+            width: 100%;
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            touch-action: pan-y;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .hero-image,
+        .image-wrapper {
+            touch-action: pan-y;
+            -webkit-touch-callout: none;
+        }
+        
+        /* Prevent double-tap zoom on product image */
+        .product-hero {
+            touch-action: pan-y;
+        }
+        
+        .hero-text-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            color: white;
+            z-index: 2;
+        }
+        
+        .hero-text-overlay h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+        
+        .hero-text-overlay .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            color: var(--light-text);
+        }
+        
+        /* Product Info */
+        .product-meta h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .product-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 32px;
+        }
+        
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 576px) {
+            .cta-buttons {
+                flex-direction: row;
+            }
+        }
+        
+        .btn {
+            padding: 18px 32px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            transition: all var(--transition-normal);
+            flex: 1;
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        
+        a.btn {
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--black);
+            box-shadow: var(--shadow-button);
+            font-weight: 700;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+        
+        /* Description Section */
+        .description-section {
+            margin-top: 40px;
+        }
+        
+        .section-subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .description-text {
+            margin-bottom: 24px;
+            line-height: 1.7;
+            color: var(--light-text);
+            font-size: 1.05rem;
+        }
+        
+        .requirements-list {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 24px;
+            border-radius: var(--border-radius-sm);
+            border-left: none; /* removed white left line */
+            border: none; /* ensure there is no extra border */
+            box-shadow: none; /* remove subtle shadow if present */
+        }
+        
+        .requirements-list li {
+            margin-bottom: 12px;
+            padding-left: 0; /* remove extra left spacing */
+            position: static;
+            color: var(--light-text);
+            list-style-position: inside;
+        }
+        
+        /* remove the checkmark pseudo-element */
+        .requirements-list li:before {
+            content: none;
+        }
+        
+        .requirements-list li strong {
+            color: var(--white);
+        }
+        
+        /* Mobile Floating Cart Button */
+        .floating-action {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--medium-gray);
+            padding: 16px 24px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 800;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .floating-action .btn {
+            width: 100%;
+        }
+        
+        @media (max-width: 991px) {
+            .floating-action {
+                display: flex;
+            }
+            
+            .product-meta h1 {
+                font-size: 1.8rem;
+            }
+            
+            .product-price {
+                font-size: 2rem;
+            }
+            
+            .hero-text-overlay h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 575px) {
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- ===== STICKY HEADER ===== -->
+        <header class="header">
+            <div class="container header-container">
+                <!-- Logo -->
+                <a href="index.html" class="logo">SAM<span>NAHUTDO</span></a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="selling.html">Selling</a></li>
+                        <li><a href="commission.html">Commission</a></li>
+                    </ul>
+                    <div class="nav-icons">
+                        <i class="fas fa-search" title="Search"></i>
+                    </div>
+                </nav>
+                
+                <!-- Hamburger Menu (Mobile) -->
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-nav-links">
+                <a href="index.html">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="selling.html">
+                    <i class="fas fa-shopping-bag"></i> Selling
+                </a>
+                <a href="commission.html">
+                    <i class="fas fa-video"></i> Commission
+                </a>
+            </div>
+            
+            <div class="mobile-icons">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        
+        <!-- ===== PRODUCT DETAIL PAGE ===== -->
+        <main class="main container">
+            <div class="product-detail-container">
+                <!-- Left Column: Product Gallery -->
+                <div class="product-hero fade-in">
+                    <div class="hero-image">
+                        <div class="image-wrapper">
+                            <img id="productImage" src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Product Image" 
+                                 class="product-img">
+                            <div class="hero-text-overlay">
+                                <h1 id="productTitle">I DONT WANT IT</h1>
+                                <div class="subtitle" id="productSubtitle">Collab Project File</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Product Info -->
+                <div class="product-meta fade-in" style="animation-delay: 0.1s;">
+                    <h1 id="productFullTitle">I DONT WANT IT - Project File</h1>
+                    <div class="product-price" id="productPrice">$29.99</div>
+                    
+                    <!-- CTA Buttons (Desktop) -->
+                    <div class="cta-buttons">
+                        <a href="contact.html" class="btn btn-primary" id="contactBtn">
+                            <i class="fas fa-envelope"></i> Contact me
+                        </a>
+                    </div>
+                    
+                    <!-- Description Section -->
+                    <div class="description-section">
+                        <div class="section-subtitle">WHAT IS A PROJECT FILE?</div>
+                        <p class="description-text" id="productDescription">
+                            This is a complete After Effects project file that contains all the assets, animations, 
+                            and effects used to create the "I DONT WANT IT" minimalist aesthetic video edit. Perfect for 
+                            content creators who want to apply this clean style to their own videos.
+                        </p>
+                        
+                        <div class="requirements-list">
+                            <div style="padding: 16px; background: transparent; border-radius: 8px;">
+                                <p style="font-weight:700; margin-bottom: 8px;">READ PLS</p>
+                                <p style="margin-bottom: 8px;"><strong>WHAT IS A PROJECT FILE?</strong> A project file is a file that contains all of my work (keyframes, graphics, layers, pre-compilation, etc.) of how I did the edit.</p>
+                                <p style="margin: 8px 0;"><strong>Note:</strong> The files in this project are made for After Effects 2019 and I allow you to take presets and overlays, but please credit me if you use one of those. don't use the exact same parts of the project files in your edits. and most importantly, you need a basic understanding of how to use After Effects before you buy.</p>
+                                <p style="margin: 8px 0;"><strong>Contain:</strong></p>
+                                <ul style="margin: 4px 0 12px 20px;">
+                                    <li>- Footage</li>
+                                    <li>- Shakes</li>
+                                    <li>- Overlays</li>
+                                    <li>- Effects</li>
+                                    <li>- Graph</li>
+                                    <li>- Transition</li>
+                                </ul>
+                                <p style="margin: 8px 0;"><strong>Pluggins:</strong></p>
+                                <ul style="margin: 4px 0 12px 20px;">
+                                    <li>- Sapphire</li>
+                                    <li>- BCC</li>
+                                    <li>- Twixtor</li>
+                                </ul>
+                                <p style="margin: 8px 0;"><strong>Fonts:</strong></p>
+                                <ul style="margin: 4px 0 12px 20px;">
+                                    <li>- Retroica</li>
+                                    <li>- Helvetica</li>
+                                    <li>- Dunkin</li>
+                                    <li>- Yummi</li>
+                                </ul>
+                                <p style="margin: 8px 0;"><strong>Not necesary:</strong> Magic Boolet Looks</p>
+                                <p style="margin: 8px 0;"><strong>Questions:</strong> @josxaep dm or my email @ andresaftereffects @ gmail.com</p>
+                                <p style="margin: 8px 0; font-weight:700;">I will not give refunds if your file does not work BECAUSE you have not read the description thoroughly.</p>
+                                <p style="margin: 8px 0;">You will get a TXT (390B) file</p>
+                            </div>
+                        </div>
+                        <p class="description-text" style="margin-top: 24px; font-style: italic; color: var(--text-gray);">
+                            Will be Added soon
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- ===== MOBILE FLOATING ACTION BUTTON ===== -->
+        <div class="floating-action">
+            <a href="contact.html" class="btn btn-primary" id="mobileContactBtn">
+                <i class="fas fa-envelope"></i> Contact me
+            </a>
+        </div>
+        
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">SAMNAHUTDO</div>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="selling.html">Selling</a>
+                        <a href="commission.html">Commission</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                    </div>
+                    <p class="copyright">
+                        <a href="contact.html" style="color: var(--text-gray); text-decoration: none;">Contact me</a> | 
+                        <a href="about.html" style="color: var(--text-gray); text-decoration: none;">About me</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+        
+        <!-- ===== ABOUT ME SECTION (Bottom) ===== -->
+        <section class="about-me-section" id="aboutMeSection">
+            <div class="about-me-container">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                     alt="Profile" 
+                     class="about-me-avatar">
+                
+                <h2 class="about-me-title">About Me</h2>
+                
+                <div class="about-me-description">
+                    <p>If you have bought something / plan to buy something:</p>
+                    <p>Please do not share or give them to anyone. I need the money for my school and personal uses.</p>
+                    <p>Please do not include my overlays, presets etc in your own project files if you plan to sell or distribute them as well.</p>
+                </div>
+                
+                <div class="about-me-contact">
+                    Cualquier pregunta, envíela a instagram 
+                    <a href="https://instagram.com/josxaep" target="_blank" class="instagram-handle">@josxaep</a> 
+                    o envíeme un correo electrónico a 
+                    <a href="mailto:andresaftereffects@gmail.com" style="color: #b19cd9; text-decoration: none;">andresaftereffects@gmail.com</a>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        // Product detail page specific JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMobileMenu();
+            
+            // Get product ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 1;
+            
+            // Find product across available collections (products, images, selling videos, commission videos)
+            const product = (window.products && window.products.find(p => p.id == productId))
+                || (window.productImages && window.productImages.find(p => p.id == productId))
+                || (window.sellingVideos && window.sellingVideos.find(p => p.id == productId))
+                || (window.commissionVideos && window.commissionVideos.find(p => p.id == productId))
+                || (window.products && window.products[0]);
+            
+            // Update product details
+            updateProductDetail(product);
+            
+            // Setup cart functionality
+            setupCartFunctionality(product);
+            
+            // Setup About Me section reveal
+            setupAboutMeReveal();
+        });
+        
+        function setupAboutMeReveal() {
+            const aboutSection = document.getElementById('aboutMeSection');
+            if (!aboutSection) return;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            observer.observe(aboutSection);
+        }
+        
+        function updateProductDetail(product) {
+            if (!product) return;
+            // Update product image (use available image, thumbnail or video placeholder)
+            const imgSrc = product.image || product.thumbnail || product.videoUrl || 'https://via.placeholder.com/800x1200?text=Product';
+            const imgEl = document.getElementById('productImage');
+            if (imgEl) {
+                imgEl.src = imgSrc;
+                imgEl.alt = product.title || 'Product';
+            }
+            
+            // Update product title/subtitle
+            document.getElementById('productTitle').textContent = product.title || '';
+            document.getElementById('productFullTitle').textContent = product.subtitle ? `${product.title} - ${product.subtitle}` : (product.title || '');
+            document.getElementById('productSubtitle').textContent = product.subtitle || '';
+            
+            // Update price
+            document.getElementById('productPrice').textContent = product.price || '';
+            
+            // Update description text if available
+            const descEl = document.getElementById('productDescription');
+            if (descEl) {
+                descEl.textContent = product.description || 'Product description will be added soon.';
+            }
+            
+            // Update mobile button
+            const mobileContactBtn = document.getElementById('mobileContactBtn');
+            if (mobileContactBtn) {
+                mobileContactBtn.innerHTML = `<i class="fas fa-envelope"></i> Contact me`;
+            }
+        }
+        
+        function setupCartFunctionality(product) {
+            // No additional functionality needed
+        }
+    </script>
+</body>
+</html>
